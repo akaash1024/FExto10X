@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
+
+/* base rule  */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Urbanist", sans-serif;
+  font-family: "Urbanist", serif;
+}
+
+:root {
+  --bg-color: #aa60c8;
+  --btn-color: #b771e5;
+  --dark-color: #242424;
+  --helper-color: #99b9ff;
+}
+
+html {
+  font-size: 62.5%;
+  width: 500px;
+  height: 100vh;
+  margin: 0 auto;
+  border: 1px solid black;
+  background-image: linear-gradient(to right bottom, #99b9ff, #97a5f7, #9b90eb, #a279dc, #aa60c8);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  
+  
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Poppins", sans-serif;
+}
+
+p,
+li,
+a,
+label {
+  font-family: "Urbanist", sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: 0.1rem;
+  font-weight: 400;
+  color: var(--dark-color);
+  line-height: 1.5;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+/* layout */
+
+section {
+  scroll-snap-align: center;
+}
+
+.container {
+  max-width: 0;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+}
+
+.grid-two--cols {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-three--cols {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-four--cols {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+
+.card {
+  width: 100px;
+  aspect-ratio: 1;
+  background-color: #9b90eb;
+}
