@@ -4,11 +4,11 @@ import { CiUser } from "react-icons/ci";
 import { LiaCommentSolid } from "react-icons/lia";
 
 export const Home = () => {
-  const { posts, api, user } = useAuth();
+  const { posts, api, user, authorizationToken } = useAuth();
   const [comments, setComments] = useState({});
   const [inputData, setInputData] = useState({
     title: "",
-    thought: "",
+    description: "",
   });
   const [loadingPostId, setLoadingPostId] = useState(null);
 
@@ -28,9 +28,22 @@ export const Home = () => {
     }
   };
 
-  const onHandlePostSubmit = (e)=> {
-    // login would be here
-  }
+  const onHandlePostSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await api.post(`/api/post/create`, inputData, {
+        headers: {
+          Authorization: authorizationToken,
+        },
+      });
+
+      console.log(data);
+      setInputData({ title: "", description: "" });
+    } catch (error) {
+      next(error);
+    }
+  };
+  console.log(user);
 
   return (
     <>
@@ -48,25 +61,23 @@ export const Home = () => {
               onChange={handleInputChange}
             />
 
-            <label htmlFor="thought">Thought</label>
+            <label htmlFor="description">Thought</label>
             <input
               type="text"
-              id="thought"
-              name="thought"
-              value={inputData.thought}
+              id="description"
+              name="description"
+              value={inputData.description}
               onChange={handleInputChange}
             />
 
             <button>Add</button>
           </form>
 
-          <pre>
-            .........................................................................
-          </pre>
+          <pre> </pre>
 
           <div className="post--container grid grid-two-colm">
-            <ul className="flex felx-colm">
-              <div className="">
+            <div className="post-container--grid-left">
+              <ul className="flex felx-colm">
                 {posts.map((post) => (
                   <li key={post._id} className="card">
                     <div className="grid grid-two-colm">
@@ -110,34 +121,55 @@ export const Home = () => {
                     </div>
                   </li>
                 ))}
-              </div>
-            </ul>
+              </ul>
+            </div>
 
-            <ul className="flex felx-colm">
-              {posts.map((post) => (
-                <li key={post._id}>
-                  <div>
-                    {comments[post._id] ? (
-                      <ul>
-                        {comments[post._id].map((comment) => (
-                          <li key={comment._id}>
-                            <h4>{comment.commentedInput}</h4>
-                            <span>by {comment.commentedBy.name}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    ) : loadingPostId === post._id ? (
-                      <p>Loading comments...</p>
-                    ) : null}
-                  </div>
-                </li>
-              ))}
-            </ul>
+            <div className="post-container--grid-right">
+              <ul className="flex felx-colm">
+                {/* <form onSubmit={onHandlePostSubmit}>
+                  <label htmlFor="title">Title</label>
+                  <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    value={inputData.title}
+                    onChange={handleInputChange}
+                  />
+
+                  <label htmlFor="description">Thought</label>
+                  <input
+                    type="text"
+                    id="description"
+                    name="description"
+                    value={inputData.description}
+                    onChange={handleInputChange}
+                  />
+
+                  <button>Add</button>
+                </form> */}
+                {posts.map((post) => (
+                  <>
+                    <li key={post._id}>
+                      <div>
+                        {comments[post._id] ? (
+                          <ul>
+                            {comments[post._id].map((comment) => (
+                              <li key={comment._id}>
+                                <h4>{comment.commentedInput}</h4>
+                                <span>by {comment.commentedBy.name}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        ) : loadingPostId === post._id ? (
+                          <p>Loading comments...</p>
+                        ) : null}
+                      </div>
+                    </li>
+                  </>
+                ))}
+              </ul>
+            </div>
           </div>
-
-          <pre>
-            .........................................................................
-          </pre>
         </div>
       </main>
     </>
