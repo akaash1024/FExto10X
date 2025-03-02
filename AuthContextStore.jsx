@@ -10,8 +10,8 @@ export const AuthProvider = ({ children }) => {
   const [posts, setPosts] = useState([]);
   const authorizationToken = `Bearer ${token}`;
 
-  const API = "http://localhost:3000"
-  // const API = import.meta.env.VITE_SERVER_URL;
+  // const API = "http://localhost:3000"
+  const API = import.meta.env.VITE_SERVER_URL;
   
   
 
